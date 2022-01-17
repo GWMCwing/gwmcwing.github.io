@@ -1,6 +1,7 @@
 :root {
 	--navbar-background-color: #1e3fff;
 	--navbar-shadow-color: blue;
+	--navbar-repeat-time: 4;
 	--navbar-color-first-link: rgba(255, 255, 255, 0.774);
 	--navbar-color-second-link: rgba(255, 255, 255, 0.5);
 	--navbar-color-second-link-hover: white;
@@ -23,7 +24,9 @@
 	#navbar:hover {
 		height: var(--navbar-height-expanded);
 	}
-
+	#navbar > .navbar-mobile-option-button-container {
+		display: none;
+	}
 	#navbar > .navbar-option-icon-container > .navbar-option-icon {
 		display: inline-block;
 		position: absolute;
@@ -38,7 +41,7 @@
 		list-style-type: none;
 		padding: 0rem;
 		text-align: center;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(var(--navbar-repeat-time), 1fr);
 	}
 	#navbar > ul > li > a {
 		color: var(--navbar-color-first-link);
@@ -66,9 +69,46 @@
 
 @media only screen and (max-width: 425px) {
 	#navbar {
-		background-color: var(--navbar-background-color);
-		width: 100vw;
-		height: 3rem;
 		position: absolute;
+		height: 2.8rem;
+		width: 2.8rem;
+		overflow: hidden;
+		box-shadow: 0px 0px 0.5rem 0.1rem var(--navbar-shadow-color);
+		border-radius: 0px 0px 0.5rem 0px;
+		background-color: aliceblue;
+		opacity: 0.7;
+	}
+	#navbar > .navbar-mobile-option-button-container {
+		position: absolute;
+		left: 0%;
+		top: 0%;
+	}
+	#navbar > .navbar-mobile-option-button-container > * {
+		position: absolute;
+		top: 0.2rem;
+		left: 0.2rem;
+		font-size: 2.5rem;
+		color: var(--navbar-background-color);
+	}
+	#navbar > .navbar-mobile-option-button-container > .navbar-mobile-option-button-icon-cross {
+		top: 0.3rem;
+		left: 0.3rem;
+		font-size: 2.2rem;
+	}
+	#navbar > .navbar-mobile-option-button-container > * > svg {
+		-webkit-transition: opacity 2000ms cubic-bezier(0.18, 0.89, 0.32, 1.28),
+			transform 2000ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+	}
+	#navbar > .navbar-mobile-option-button-container > *.hide > svg {
+		opacity: 0;
+		transform: rotate(360deg);
+	}
+
+	#navbar > .navbar-mobile-option-button-container > *.show > svg {
+		opacity: 1;
+		transform: rotate(-270deg);
+	}
+	#navbar > ul {
+		padding-top: 2rem;
 	}
 }
