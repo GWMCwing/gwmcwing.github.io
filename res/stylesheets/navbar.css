@@ -1,0 +1,68 @@
+/* full screen content */
+/*  rebuild all to grid */
+/* dont use flex box */
+body {
+	margin: 0;
+	height: min-content;
+	width: 100%;
+}
+#navbar {
+	background-color: #000270;
+	padding: 0.7rem 0rem;
+	width: auto;
+	height: 1rem;
+	overflow: hidden;
+	box-shadow: 0px 0px 1rem 0.2rem rgb(0, 153, 255);
+	transition: height 300ms ease-in-out;
+}
+#navbar:hover {
+	height: 10rem;
+}
+#navbar > ul {
+	display: flex;
+	list-style-type: none;
+	padding: 0rem;
+	margin: 0rem;
+	justify-content: space-evenly;
+}
+#navbar > ul > li > a {
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+	position: relative;
+}
+#navbar > ul > li > a.expandable-link::after {
+	content: '';
+	position: absolute;
+	border: solid white;
+	border-width: 0px 0.15rem 0.15rem 0px;
+	display: inline-block;
+	left: 110%;
+	top: 15%;
+	padding: 0.22rem;
+	transition: transform 200ms ease-in-out;
+	transform: rotate(45deg);
+}
+
+#navbar:hover > ul > li > a.expandable-link::after {
+	transform: rotate(-135deg);
+}
+
+#navbar > ul > li > ul {
+	position: fixed;
+	padding: 1rem 0rem 0rem 0rem;
+	width: 5rem;
+}
+#navbar > ul > li > ul > li {
+	display: block;
+	list-style-type: none;
+	padding: 0.2rem 0rem;
+}
+#navbar > ul > li > ul > li > a {
+	text-decoration: underline;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+/* extended content */
+
+/*  for mobile  */
