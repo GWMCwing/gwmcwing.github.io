@@ -91,13 +91,15 @@
 	#navbar.collapsed {
 		height: var(--navbar-height-collapsed);
 		width: var(--navbar-width-collapsed);
-		transition: width 450ms ease-in, height 325ms ease-in-out;
+		transition: width 450ms ease-in, height 325ms ease-in-out,
+			opacity 550ms ease-in-out;
 	}
 	#navbar.expanded {
 		height: var(--navbar-height-expanded);
 		width: var(--navbar-width-expanded);
 		background-color: var(--navbar-background-color);
-		transition: width 225ms ease-in, height 450ms ease-in;
+		transition: width 225ms ease-in, height 450ms ease-in,
+			opacity 550ms ease-in-out;
 		opacity: 0.95;
 	}
 	#navbar > .navbar-mobile-option-button-container {
