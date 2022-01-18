@@ -1,8 +1,11 @@
 <link rel="stylesheet" href="/res/stylesheets/navbar.css" />
 <script src="/res/javascripts/navbar.js"></script>
-<div id="navbar">
+<div id="navbar" class="expanded">
 	<div class="navbar-icon-container"></div>
-	<div class="navbar-mobile-option-button-container" style="height: 100%; width: 100%" onclick="toggleMobileOption()">
+	<div
+		class="navbar-mobile-option-button-container"
+		onclick="toggleMobileOption()"
+	>
 		<div class="navbar-mobile-option-button-icon-wheel show">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +23,11 @@
 						stroke="currentColor"
 						stroke-width="2"
 					/>
-					<path d="M16 12a4 4 0 1 1-8 0a4 4 0 0 1 8 0z" stroke="currentColor" stroke-width="2" />
+					<path
+						d="M16 12a4 4 0 1 1-8 0a4 4 0 0 1 8 0z"
+						stroke="currentColor"
+						stroke-width="2"
+					/>
 				</g>
 			</svg>
 		</div>
@@ -44,7 +51,17 @@
 	</div>
 	<ul>
 		<li><a href="#">Home</a></li>
-		<li><a href="javascript:void(0)">Games</a></li>
+		<li>
+			<a href="#">Visualization</a>
+			<ul>
+				<li><a href="#">Sorting</a></li>
+				<li><a href="#">Path Finding</a></li>
+				<li><a href="#">I dont know</a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="javascript:void(0)">Games</a>
+		</li>
 		<li>
 			<a href="javascript:void(0)">Github</a>
 			<ul>
