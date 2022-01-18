@@ -1,0 +1,34 @@
+:root {
+	--navbar-background-color: #363636;
+	--section1-background-color: #242424;
+}
+/* @media only screen and (min-width: 425px) { */
+#content-container-main {
+	display: grid;
+	padding-left: 0px;
+	background-color: var(--section1-background-color);
+}
+/* } */
+.content-container-section {
+	/* padding-left: 1rem; */
+	padding-top: 0.2rem;
+}
+.content-container-section1 {
+	background-color: var(--section1-background-color); /* change with image*/
+}
+.content-container-section1 > .intro-box {
+	margin: 1.5rem auto;
+	width: fit-content;
+	border: 0.1rem solid black;
+	border-radius: 2rem;
+	background-color: rgb(65, 65, 65);
+	box-shadow: 0px 5px 1rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+.content-container-section1 > .intro-box > p {
+	padding: 0.1rem 1.4rem;
+	color: white;
+}
+/* @media only screen and (max-width: 425px) {
+	#content-container-main {
+	}
+} */

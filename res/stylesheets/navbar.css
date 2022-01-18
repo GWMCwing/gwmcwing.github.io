@@ -1,11 +1,11 @@
 :root {
-	--navbar-background-color: #1e3fff;
-	--navbar-shadow-color: blue;
+	--navbar-background-color: #363636;
+	--navbar-shadow-color: rgba(165, 165, 165, 0.363);
 	--navbar-repeat-time: 5;
-	--navbar-color-first-link: rgba(255, 255, 255, 0.774);
-	--navbar-color-second-link: rgba(255, 255, 255, 0.5);
+	--navbar-color-first-link: rgba(0, 163, 35, 0.774);
+	--navbar-color-second-link: rgba(0, 225, 255, 0.5);
 	--navbar-color-second-link-hover: white;
-	--navbar-color-second-link-hover-shadow: rgba(255, 255, 255, 0.5);
+	--navbar-color-second-link-hover-shadow: rgba(62, 233, 255, 0.5);
 }
 @media only screen and (min-width: 425px) {
 	:root {
@@ -19,7 +19,7 @@
 		overflow: hidden;
 		background-color: var(--navbar-background-color);
 		transition: height 350ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
-		box-shadow: 0px 0px 1rem 0.2rem blue;
+		box-shadow: 0px 0px 1rem 0.2rem var(--navbar-shadow-color);
 	}
 
 	#navbar:hover {
@@ -155,14 +155,11 @@
 	#navbar > ul > li > a:hover,
 	#navbar > ul > li > a:focus,
 	#navbar > ul > li > a:visited {
-		color: rgba(255, 255, 255, 0.705);
+		color: var(--navbar-color-first-link);
+		font-weight: bold;
 		text-decoration: none;
 	}
 
-	#navbar > ul > li > a {
-		color: var(--navbar-color-first-link);
-		font-weight: bold;
-	}
 	#navbar > ul > li > ul {
 		list-style-type: square;
 	}
@@ -177,7 +174,7 @@
 	#navbar > ul > li > ul > li > a:visited {
 		text-decoration: none;
 		overflow: hidden;
-		color: white;
+		color: var(--navbar-color-second-link);
 	}
 	#navbar > ul > li > ul > li > a:active,
 	#navbar > ul > li > ul > li > a:hover {

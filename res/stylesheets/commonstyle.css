@@ -5,17 +5,17 @@ body {
 	margin: 0px;
 	scroll-behavior: smooth;
 }
-.content {
+#content-container-main {
 	margin-top: 0px;
 	padding-left: 0.4rem;
 }
 @media only screen and (min-width: 425px) {
-	.content {
+	#content-container-main {
 		padding-top: 2.2rem;
 	}
 }
 @media only screen and (max-width: 425px) {
-	.content {
+	#content-container-main {
 		padding-top: 1.7rem;
 	}
 }
