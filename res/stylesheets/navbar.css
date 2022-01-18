@@ -13,6 +13,7 @@
 		--navbar-height-expanded: 12rem;
 	}
 	#navbar {
+		position: absolute;
 		width: 100vw;
 		height: var(--navbar-height-original);
 		overflow: hidden;
@@ -90,13 +91,14 @@
 	#navbar.collapsed {
 		height: var(--navbar-height-collapsed);
 		width: var(--navbar-width-collapsed);
-		transition: width 550ms ease-in, height 425ms ease-in-out;
+		transition: width 450ms ease-in, height 325ms ease-in-out;
 	}
 	#navbar.expanded {
 		height: var(--navbar-height-expanded);
 		width: var(--navbar-width-expanded);
 		background-color: var(--navbar-background-color);
-		transition: width 225ms ease-in, height 550ms ease-in;
+		transition: width 225ms ease-in, height 450ms ease-in;
+		opacity: 0.95;
 	}
 	#navbar > .navbar-mobile-option-button-container {
 		position: absolute;
