@@ -1,11 +1,17 @@
 :root {
-	--navbar-background-color: #363636;
+	/* --navbar-background-color: #363636;
 	--navbar-shadow-color: rgba(165, 165, 165, 0.363);
-	--navbar-repeat-time: 5;
 	--navbar-color-first-link: rgba(0, 163, 35, 0.774);
 	--navbar-color-second-link: rgba(0, 225, 255, 0.5);
 	--navbar-color-second-link-hover: white;
-	--navbar-color-second-link-hover-shadow: rgba(62, 233, 255, 0.5);
+	--navbar-color-second-link-hover-shadow: rgba(62, 233, 255, 0.5); */
+	--navbar-repeat-time: 5;
+	--navbar-background-color: #1a237e;
+	--navbar-shadow-color: #404eeeb7;
+	--navbar-color-first-link: white;
+	--navbar-color-second-link: rgba(255, 255, 255, 0.85);
+	--navbar-color-second-link-hover: rgb(185, 185, 185);
+	--navbar-color-second-link-hover-shadow: rgba(38, 0, 255, 0.5);
 }
 @media only screen and (min-width: 425px) {
 	:root {

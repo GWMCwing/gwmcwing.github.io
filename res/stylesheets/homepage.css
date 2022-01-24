@@ -5,12 +5,15 @@
 /* @media only screen and (min-width: 425px) { */
 #content-container-main {
 	display: grid;
+	height: 105vh;
 	padding-left: 0px;
 	background-color: var(--section1-background-color);
 }
 /* } */
 .content-container-section {
 	/* padding-left: 1rem; */
+	overflow: hidden;
+	width: 100vw;
 	padding-top: 0.2rem;
 }
 .content-container-section1 {
