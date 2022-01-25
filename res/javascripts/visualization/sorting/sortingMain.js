@@ -21,10 +21,12 @@ const barList = [];
 
 window.onload = function () {
 	addEventListenerToOptions();
-	let sortingOptionsLen = sortingOptions.lists.length;
-	for (let i = 0; i < sortingOptionsLen; i++) {
-		let sortingOptionElement = document.createElement('option');
-		const algorithmName = sortingOptions.lists[i].algorithmName;
+	const sortingOptionKey = Object.keys(sortingOptions);
+	const sortingOptionKeyLen = sortingOptionKey.length;
+	//! rebuild
+	for (let i = 0; i < sortingOptionKeyLen; i++) {
+		const sortingOptionElement = document.createElement('option');
+		const algorithmName = sortingOptionKey[i][0];
 		sortingOptionElement.value = algorithmName;
 		sortingOptionElement.innerHTML = algorithmName;
 		sortingOptionsElement.appendChild(sortingOptionElement);
