@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>GW_MC webpage</title>
+		<link rel="stylesheet" href="/res/stylesheets/commonstyle.css" />
+		<link
+			rel="stylesheet"
+			href="/res/stylesheets/visualization/sorting/sorting.css"
+		/>
+	</head>
+	<body>
+		<div class="navbar-placeholder"></div>
+		<div id="content-container-main">
+			<div class="sortingBox">
+				<div class="sortingBox-header">
+					<div class="sortingBox-header-title">
+						<p id="sortingTitle">Sorting</p>
+					</div>
+				</div>
+				<div id="sortingBox-display">
+					<!--  -->
+				</div>
+				<div class="sortingBox-metrics">
+					<form id="sortingOptionsForm">
+						<label for="sortingAlgorithm">Sorting Algorithm</label>
+						<select name="sortingAlgorithm" id="sortingAlgorithm"></select>
+						<label for="sortingSpeed">Speed</label>
+						<input
+							type="range"
+							id="sortingSpeed-range"
+							name="sortingSpeed-range"
+							value="50"
+						/>
+						<input
+							type="number"
+							id="sortingSpeed-number"
+							name="sortingSpeed-number"
+							value="50"
+						/>
+						<label for sortingSize>Size</label>
+						<input
+							type="range"
+							id="sortingSize-range"
+							name="sortingItems-range"
+							value="50"
+						/>
+						<input
+							type="number"
+							id="sortingSize-number"
+							name="sortingItems-number"
+							value="50"
+						/>
+
+						<input type="button" id="sortingStart" value="Start Sorting" />
+						<input
+							type="button"
+							id="sortingReshuffle"
+							name="Reshuffle"
+							value="Reshuffle"
+						/>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="/res/javascripts/jquery-3.6.0.min.js"></script>
+	<div id="sortingAlgorithmScript">
+		<script src="/res/javascripts/visualization/sorting/sortingOptions.js"></script>
+		<script src="/res/javascripts/visualization/sorting/importSorting.js"></script>
+		<script src="/res/javascripts/visualization/sorting/sortingMain.js"></script>
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			$('.navbar-placeholder').load('/views/template/navbar/navbar.html');
+		});
+	</script>
+</html>

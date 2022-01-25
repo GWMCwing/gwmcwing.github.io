@@ -7,6 +7,9 @@ body {
 	margin-top: 0px;
 	padding-left: 0.4rem;
 }
+.non-clickable-link {
+	cursor: not-allowed;
+}
 @media only screen and (min-width: 425px) {
 	#content-container-main {
 		padding-top: 2.2rem;
