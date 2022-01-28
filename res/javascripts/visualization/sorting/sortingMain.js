@@ -18,6 +18,7 @@ class barClass {
 	}
 }
 const barList = [];
+var sortingAlgorithmObj = undefined;
 
 window.onload = function () {
 	addEventListenerToOptions();
@@ -26,16 +27,16 @@ window.onload = function () {
 	//! rebuild
 	for (let i = 0; i < sortingOptionKeyLen; i++) {
 		const sortingOptionElement = document.createElement('option');
-		const algorithmName = sortingOptionKey[i][0];
+		const algorithmName = sortingOptionKey[i];
 		sortingOptionElement.value = algorithmName;
 		sortingOptionElement.innerHTML = algorithmName;
 		sortingOptionsElement.appendChild(sortingOptionElement);
 	}
 	sortingSpeedElement_range.max = 100;
-	sortingSpeedElement_range.min = 1;
-	sortingSizeElement_range.max = Math.max(
+	sortingSpeedElement_range.min = 4;
+	sortingSizeElement_range.max = Math.min(
 		Math.floor((document.body.clientWidth / 2) * 0.85),
-		500
+		200
 	);
 	sortingSizeElement_range.min = 1;
 	sortingSpeedElement_number.max = sortingSpeedElement_range.max;
@@ -92,8 +93,21 @@ function addEventListenerToOptions() {
 	};
 }
 function startSorting(algorithm, speed, size) {
-	//! speed and size are string
 	console.log(algorithm, speed, size);
+	const sortingList = barList.slice(0, size);
+	const originalList = barList;
+	//
+	sortingSpeedElement_range.disabled = true;
+	sortingSpeedElement_number.disabled = true;
+	sortingSizeElement_range.disabled = true;
+	sortingSizeElement_number.disabled = true;
+	//
+	sortingAlgorithmObj = sortingOptions[algorithm].function(
+		speed,
+		sortingList,
+		originalList
+	);
+	sortingAlgorithmObj.continueSort();
 }
 
 function insertBar() {
@@ -105,7 +119,7 @@ function insertBar() {
 	bar.style.marginTop = 'auto';
 	bar.style.display = 'none';
 	sortingBox_displayElement.appendChild(bar);
-	return [bar, value];
+	return [bar, parseFloat(value)];
 }
 function updateVisibleBars(values) {
 	for (let i = 0; i < values; i++) {
@@ -118,6 +132,12 @@ function updateVisibleBars(values) {
 }
 function reshuffle() {
 	const barListLen = barList.length;
+	sortingAlgorithmObj.forceEnd = true;
+	delete sortingAlgorithmObj;
+	sortingSpeedElement_range.disabled = false;
+	sortingSpeedElement_number.disabled = false;
+	sortingSizeElement_range.disabled = false;
+	sortingSizeElement_number.disabled = false;
 	for (let i = 0; i < barListLen; i++) {
 		const barListObj = barList[i];
 		const value = getRandomHeight();

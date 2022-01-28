@@ -1,27 +1,41 @@
 const sortingOptions = {
-	bubbleSort: {
+	'Bubble Sort': {
 		algorithmName: 'Bubble Sort',
 		src: '/res/javascripts/visualization/sorting/sortingAlgorithm/bubbleSort.js',
-		function: '',
+		function: (sortingSpeed, listObj, originalList) => {
+			return new bubbleSort(sortingSpeed, listObj, originalList);
+		},
 	},
-	insertionSort: {
+	'Insertion Sort': {
 		algorithmName: 'Insertion Sort',
 		src: '/res/javascripts/visualization/sorting/sortingAlgorithm/insertionSort.js',
-		function: '',
+		function: () => {
+			alert('not implemented');
+			return null;
+		},
 	},
-	selectionSort: {
+	'Selection Sort': {
 		algorithmName: 'Selection Sort',
 		src: '/res/javascripts/visualization/sorting/sortingAlgorithm/selectionSort.js',
-		function: '',
+		function: () => {
+			alert('not implemented');
+			return null;
+		},
 	},
-	mergeSort: {
+	'Merge Sort': {
 		algorithmName: 'Merge Sort',
 		src: '/res/javascripts/visualization/sorting/sortingAlgorithm/mergeSort.js',
-		function: '',
+		function: () => {
+			alert('not implemented');
+			return null;
+		},
 	},
-	quickSort: {
+	'Quick Sort': {
 		algorithmName: 'Quick Sort',
 		src: '/res/javascripts/visualization/sorting/sortingAlgorithm/quickSort.js',
-		function: '',
+		function: () => {
+			alert('not implemented');
+			return null;
+		},
 	},
 };
