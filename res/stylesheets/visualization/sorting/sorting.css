@@ -27,3 +27,12 @@ body > .sortingBox > .sortingBox-header {
 	border: 1px solid #000;
 	background-color: #000;
 }
+.bar.red-highlight {
+	background-color: #ff0000;
+}
+.bar.green-highlight {
+	background-color: #00ff00;
+}
+.bar.blue-highlight {
+	background-color: #0000ff;
+}

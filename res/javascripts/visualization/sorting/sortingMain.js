@@ -1,3 +1,4 @@
+//TODO add a compare function to all sorting algorithms and create compare counter
 //
 const sortingBox_displayElement = document.getElementById('sortingBox-display');
 //
@@ -11,14 +12,25 @@ const sortingSizeElement_number = document.getElementById('sortingSize-number');
 const sortingStartElement = document.getElementById('sortingStart');
 const sortingReshuffleElement = document.getElementById('sortingReshuffle');
 //
+const accessCountNumberElement = document.getElementById('accessCount-number');
+const sortStatusStateElement = document.getElementById('sortStatus-state');
+//
 class barClass {
 	constructor(element, value) {
 		this.element = element;
-		this.value = value;
+		this._value = value;
+	}
+	get value() {
+		accessCount++;
+		return this._value;
+	}
+	set value(newValue) {
+		this._value = newValue;
 	}
 }
 const barList = [];
-var sortingAlgorithmObj = undefined;
+var sortingAlgorithmObj = null;
+var accessCount = 0;
 
 window.onload = function () {
 	addEventListenerToOptions();
@@ -43,7 +55,8 @@ window.onload = function () {
 	sortingSpeedElement_number.min = sortingSpeedElement_range.min;
 	sortingSizeElement_number.max = sortingSizeElement_number.max;
 	sortingSizeElement_number.min = sortingSizeElement_number.min;
-	for (let i = 0; i < sortingSizeElement_range.max; i++) {
+	const barListLen = sortingSizeElement_range.max + 1;
+	for (let i = 0; i < barListLen; i++) {
 		const [bar, value] = insertBar();
 		barList.push(new barClass(bar, value));
 	}
@@ -97,16 +110,21 @@ function startSorting(algorithm, speed, size) {
 	const sortingList = barList.slice(0, size);
 	const originalList = barList;
 	//
-	sortingSpeedElement_range.disabled = true;
-	sortingSpeedElement_number.disabled = true;
-	sortingSizeElement_range.disabled = true;
-	sortingSizeElement_number.disabled = true;
-	//
 	sortingAlgorithmObj = sortingOptions[algorithm].function(
 		speed,
 		sortingList,
 		originalList
 	);
+	if (sortingAlgorithmObj === null) return;
+	//
+	sortingOptionsElement.disabled = true;
+	sortingSpeedElement_range.disabled = true;
+	sortingSpeedElement_number.disabled = true;
+	sortingSizeElement_range.disabled = true;
+	sortingSizeElement_number.disabled = true;
+	//
+	sortStatusStateElement.innerHTML = 'Sorting...';
+	//
 	sortingAlgorithmObj.continueSort();
 }
 
@@ -132,18 +150,31 @@ function updateVisibleBars(values) {
 }
 function reshuffle() {
 	const barListLen = barList.length;
-	sortingAlgorithmObj.forceEnd = true;
-	delete sortingAlgorithmObj;
+	accessCount = 0;
+	sortingOptionsElement.disabled = false;
 	sortingSpeedElement_range.disabled = false;
 	sortingSpeedElement_number.disabled = false;
 	sortingSizeElement_range.disabled = false;
 	sortingSizeElement_number.disabled = false;
+	if (sortingAlgorithmObj !== null) {
+		sortingAlgorithmObj.forceEnd = true;
+		delete sortingAlgorithmObj;
+	}
 	for (let i = 0; i < barListLen; i++) {
 		const barListObj = barList[i];
 		const value = getRandomHeight();
 		barListObj.element.style.height = `${value}%`;
-		barListObj.value = value;
+		barListObj._value = value;
+		const classList = barListObj.element.classList;
+		classList.remove('red-highlight');
+		classList.remove('green-highlight');
+		classList.remove('blue-highlight');
 	}
+	sortStatusStateElement.innerHTML = 'Paused';
+	accessCountNumberElement.innerHTML = accessCount;
+}
+function updateMetrics() {
+	accessCountNumberElement.innerHTML = accessCount;
 }
 function getRandomHeight() {
 	return Math.random() * 97;
