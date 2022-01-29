@@ -11,6 +11,7 @@ const sortingSizeElement_range = document.getElementById('sortingSize-range');
 const sortingSizeElement_number = document.getElementById('sortingSize-number');
 const sortingStartElement = document.getElementById('sortingStart');
 const sortingReshuffleElement = document.getElementById('sortingReshuffle');
+const sortingResetLimitElement = document.getElementById('sortingResetLimit');
 //
 const accessCountNumberElement = document.getElementById('accessCount-number');
 const compareCountNumberElement = document.getElementById(
@@ -36,7 +37,8 @@ const barList = [];
 const speedRange = [4, 1000, 50];
 const sizeRange = [
 	3,
-	Math.min(Math.floor((document.body.clientWidth / 2) * 0.85), 250),
+	// Math.min(Math.floor((document.body.clientWidth / 2) * 0.85), 250),
+	getSizeRangeLimit(),
 	50,
 ];
 //
@@ -45,7 +47,9 @@ var accessCount = 0;
 var compareCount = 0;
 var swapCount = 0;
 //
-
+function getSizeRangeLimit() {
+	return Math.floor((document.body.clientWidth / 2) * 0.825);
+}
 window.onload = function () {
 	addEventListenerToOptions();
 	addSortingAlgorithmsOptions();
@@ -98,6 +102,25 @@ function addEventListenerToOptions() {
 		this.value = value;
 		updateVisibleBars(this.value);
 	};
+	sortingResetLimitElement.onclick = function () {
+		resetSortingSizeElementLimit(getSizeRangeLimit());
+	};
+}
+function resetSortingSizeElementLimit(number) {
+	sortingSizeElement_range.max = number;
+	sortingSizeElement_number.max = number;
+	const barListLen = barList.length;
+	const insertLen = number - barListLen;
+	for (let i = 0; i < insertLen; i++) {
+		const [bar, value] = insertBar();
+		barList.push(new barClass(bar, value));
+	}
+	const value = parseInt(sortingSizeElement_number.value);
+	if (value > number) {
+		sortingSizeElement_number.value = number;
+		sortingSizeElement_range.value = number;
+	}
+	updateVisibleBars(number);
 }
 function startSorting(algorithm, speed, size) {
 	console.log(algorithm, speed, size);
@@ -115,6 +138,7 @@ function startSorting(algorithm, speed, size) {
 	sortingSizeElement_range.disabled = true;
 	sortingSizeElement_number.disabled = true;
 	sortingStartElement.disabled = true;
+	sortingResetLimitElement.disabled = true;
 	//
 	sortStatusStateElement.innerHTML = 'Sorting...';
 	//
@@ -150,6 +174,7 @@ function reshuffle() {
 	sortingSizeElement_range.disabled = false;
 	sortingSizeElement_number.disabled = false;
 	sortingStartElement.disabled = false;
+	sortingResetLimitElement.disabled = false;
 	if (sortingAlgorithmObj !== null) {
 		sortingAlgorithmObj.forceEnd = true;
 		delete sortingAlgorithmObj;
@@ -173,7 +198,7 @@ function updateMetrics() {
 	swapCountNumberElement.innerHTML = swapCount;
 }
 function getRandomHeight() {
-	return Math.random() * 96 + 1;
+	return Math.random() * 96.5 + 0.5;
 }
 function setInputElementValues() {
 	sortingSpeedElement_range.min = speedRange[0];
