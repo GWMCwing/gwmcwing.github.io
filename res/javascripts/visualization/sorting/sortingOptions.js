@@ -24,7 +24,7 @@ const sortingOptions = {
 		function: (sortingSpeed, listObj, originalList) => {
 			return new selectionSort(sortingSpeed, listObj, originalList);
 		},
-		optionDisabled: true,
+		optionDisabled: false,
 	},
 	'Merge Sort': {
 		algorithmName: 'Merge Sort',

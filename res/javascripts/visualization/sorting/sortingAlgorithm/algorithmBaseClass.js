@@ -1,3 +1,8 @@
+/**
+ * base class for all sorting algorithms class
+ *
+ * Must Override ```sortUpdate()``` and ```colorHighlightUpdate()``` for the corresponding algorithm
+ */
 class algorithmBaseClass {
 	/**
 	 *
@@ -24,6 +29,23 @@ class algorithmBaseClass {
 		this.previousGreenHighlight = [];
 		this.currentGreenHighlight = [];
 		this.currentGreenHighlightPending = [];
+	}
+	// require override
+	/**
+	 * the sorting algorithm to be implemented, one operation per call
+	 * @override
+	 * @param  {...any} args
+	 */
+	sortUpdate(...args) {
+		this.warnUnimplemented('sortUpdate');
+	}
+	/**
+	 * update the current highlight list
+	 * @override
+	 * @param  {...any} args
+	 */
+	colorHighlightUpdate(...args) {
+		this.warnUnimplemented('displayUpdate');
 	}
 	/**
 	 * compare the value of the two barObj
@@ -198,23 +220,7 @@ class algorithmBaseClass {
 		this.colorHighlightUpdate();
 		this.updateHighlightClass();
 	}
-	// require override
-	/**
-	 * the sorting algorithm to be implemented, one operation per call
-	 * @override
-	 * @param  {...any} args
-	 */
-	sortUpdate(...args) {
-		this.warnUnimplemented('sortUpdate');
-	}
-	/**
-	 * update the current highlight list
-	 * @override
-	 * @param  {...any} args
-	 */
-	colorHighlightUpdate(...args) {
-		this.warnUnimplemented('displayUpdate');
-	}
+
 	//
 	warnUnimplemented(funName) {
 		console.error(`${funName} is not implemented`);

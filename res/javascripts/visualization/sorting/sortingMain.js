@@ -173,7 +173,7 @@ function updateMetrics() {
 	swapCountNumberElement.innerHTML = swapCount;
 }
 function getRandomHeight() {
-	return Math.random() * 97;
+	return Math.random() * 96 + 1;
 }
 function setInputElementValues() {
 	sortingSpeedElement_range.min = speedRange[0];
