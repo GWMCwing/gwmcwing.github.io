@@ -56,6 +56,7 @@ class algorithmBaseClass {
 	compareValues(index1, index2) {
 		if (this.forceEnd) return;
 		compareCount++;
+		// console.log(index1, index2);
 		return this.listObj[index1].value > this.listObj[index2].value;
 	}
 	/**
@@ -66,6 +67,7 @@ class algorithmBaseClass {
 	 */
 	insertBeforeElement(index1, targetIndex) {
 		//
+
 		if (this.forceEnd) return;
 		const barObj = this.listObj[index1];
 		const targetBarObj = this.listObj[targetIndex];

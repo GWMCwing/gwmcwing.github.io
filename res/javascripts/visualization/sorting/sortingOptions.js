@@ -32,7 +32,7 @@ const sortingOptions = {
 		function: (sortingSpeed, listObj, originalList) => {
 			return new mergeSort(sortingSpeed, listObj, originalList);
 		},
-		optionDisabled: true,
+		optionDisabled: false,
 	},
 	'Quick Sort': {
 		algorithmName: 'Quick Sort',
