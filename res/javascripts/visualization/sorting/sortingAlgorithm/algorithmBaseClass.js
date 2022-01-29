@@ -12,15 +12,15 @@ class algorithmBaseClass {
 		this.sortingSize = listObj.length;
 		this.sorted = null;
 		this.forceEnd = false;
-		//
+		// color for value comparing
 		this.previousRedHighlight = [];
 		this.currentRedHighlight = [];
 		this.currentRedHighlightPending = [];
-		//
+		// color for value pointer, or target compare
 		this.previousBlueHighlight = [];
 		this.currentBlueHighlight = [];
 		this.currentBlueHighlightPending = [];
-		//
+		// color for value just swapped
 		this.previousGreenHighlight = [];
 		this.currentGreenHighlight = [];
 		this.currentGreenHighlightPending = [];
@@ -194,13 +194,25 @@ class algorithmBaseClass {
 			return true;
 		}
 		this.sortUpdate();
-		this.displayUpdate();
+		this.pushHighlight();
+		this.colorHighlightUpdate();
+		this.updateHighlightClass();
 	}
 	// require override
+	/**
+	 * the sorting algorithm to be implemented, one operation per call
+	 * @override
+	 * @param  {...any} args
+	 */
 	sortUpdate(...args) {
 		this.warnUnimplemented('sortUpdate');
 	}
-	displayUpdate(...args) {
+	/**
+	 * update the current highlight list
+	 * @override
+	 * @param  {...any} args
+	 */
+	colorHighlightUpdate(...args) {
 		this.warnUnimplemented('displayUpdate');
 	}
 	//

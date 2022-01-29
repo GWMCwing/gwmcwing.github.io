@@ -1,3 +1,8 @@
+:root {
+	--sortingRedHighlight: #9e0000;
+	--sortingBlueHighlight: #00009e;
+	--sortingGreenHighlight: #009e00;
+}
 body {
 	height: 80vh;
 }
@@ -24,15 +29,17 @@ body > .sortingBox > .sortingBox-header {
 @media only screen and (max-width: 425px) {
 }
 .bar {
-	border: 1px solid #000;
 	background-color: #000;
 }
 .bar.red-highlight {
-	background-color: #ff0000;
+	background-color: var(--sortingRedHighlight);
+	/* border-color: var(--sortingRedHighlight); */
 }
 .bar.green-highlight {
-	background-color: #00ff00;
+	background-color: var(--sortingGreenHighlight);
+	/* border-color: var(--sortingGreenHighlight); */
 }
 .bar.blue-highlight {
-	background-color: #0000ff;
+	background-color: var(--sortingBlueHighlight);
+	/* border-color: var(--sortingBlueHighlight); */
 }

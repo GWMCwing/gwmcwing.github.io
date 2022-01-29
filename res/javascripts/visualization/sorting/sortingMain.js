@@ -33,38 +33,23 @@ class barClass {
 	}
 }
 const barList = [];
+const speedRange = [4, 1000, 50];
+const sizeRange = [
+	3,
+	Math.min(Math.floor((document.body.clientWidth / 2) * 0.85), 250),
+	50,
+];
+//
 var sortingAlgorithmObj = null;
 var accessCount = 0;
 var compareCount = 0;
 var swapCount = 0;
+//
 
 window.onload = function () {
 	addEventListenerToOptions();
-	const sortingOptionValues = Object.values(sortingOptions);
-	const sortingOptionValuesLen = sortingOptionValues.length;
-	for (let i = 0; i < sortingOptionValuesLen; i++) {
-		const sortingOptionElement = document.createElement('option');
-		const sortingOptionValue = sortingOptionValues[i];
-		const optionDisabled = sortingOptionValue.optionDisabled;
-		//
-		sortingOptionElement.value = sortingOptionValue.algorithmName;
-		sortingOptionElement.innerHTML = sortingOptionValue.algorithmName;
-		if (optionDisabled === true || optionDisabled === undefined) {
-			sortingOptionElement.disabled = true;
-		}
-		sortingOptionsElement.appendChild(sortingOptionElement);
-	}
-	sortingSpeedElement_range.max = 1000;
-	sortingSpeedElement_range.min = 4;
-	sortingSizeElement_range.max = Math.min(
-		Math.floor((document.body.clientWidth / 2) * 0.85),
-		200
-	);
-	sortingSizeElement_range.min = 1;
-	sortingSpeedElement_number.max = sortingSpeedElement_range.max;
-	sortingSpeedElement_number.min = sortingSpeedElement_range.min;
-	sortingSizeElement_number.max = sortingSizeElement_number.max;
-	sortingSizeElement_number.min = sortingSizeElement_number.min;
+	addSortingAlgorithmsOptions();
+	setInputElementValues();
 	const barListLen = sortingSizeElement_range.max + 1;
 	for (let i = 0; i < barListLen; i++) {
 		const [bar, value] = insertBar();
@@ -84,18 +69,19 @@ window.onload = function () {
 function addEventListenerToOptions() {
 	sortingSpeedElement_range.oninput = function () {
 		sortingSpeedElement_number.value = this.value;
+		updateSortingSpeed(this.value);
 	};
 	sortingSpeedElement_number.onchange = function () {
 		let value = parseInt(this.value);
-		const maxValue = parseInt(sortingSpeedElement_range.max);
-		const minValue = parseInt(sortingSpeedElement_range.min);
-		if (value > maxValue) {
+		if (value > speedRange[1]) {
 			value = maxValue;
-		} else if (value < minValue) {
+		} else if (value < speedRange[0]) {
 			value = minValue;
 		}
 		sortingSpeedElement_range.value = value;
 		this.value = value;
+
+		updateSortingSpeed(value);
 	};
 	sortingSizeElement_range.oninput = function () {
 		sortingSizeElement_number.value = this.value;
@@ -103,11 +89,9 @@ function addEventListenerToOptions() {
 	};
 	sortingSizeElement_number.onchange = function () {
 		let value = parseInt(this.value);
-		const maxValue = parseInt(sortingSizeElement_range.max);
-		const minValue = parseInt(sortingSizeElement_range.min);
-		if (value > maxValue) {
+		if (value > sizeRange[1]) {
 			value = maxValue;
-		} else if (value < minValue) {
+		} else if (value < sizeRange[0]) {
 			value = minValue;
 		}
 		sortingSizeElement_range.value = value;
@@ -128,10 +112,9 @@ function startSorting(algorithm, speed, size) {
 	if (sortingAlgorithmObj === null) return;
 	//
 	sortingOptionsElement.disabled = true;
-	sortingSpeedElement_range.disabled = true;
-	sortingSpeedElement_number.disabled = true;
 	sortingSizeElement_range.disabled = true;
 	sortingSizeElement_number.disabled = true;
+	sortingStartElement.disabled = true;
 	//
 	sortStatusStateElement.innerHTML = 'Sorting...';
 	//
@@ -164,10 +147,9 @@ function reshuffle() {
 	compareCount = 0;
 	swapCount = 0;
 	sortingOptionsElement.disabled = false;
-	sortingSpeedElement_range.disabled = false;
-	sortingSpeedElement_number.disabled = false;
 	sortingSizeElement_range.disabled = false;
 	sortingSizeElement_number.disabled = false;
+	sortingStartElement.disabled = false;
 	if (sortingAlgorithmObj !== null) {
 		sortingAlgorithmObj.forceEnd = true;
 		delete sortingAlgorithmObj;
@@ -192,4 +174,39 @@ function updateMetrics() {
 }
 function getRandomHeight() {
 	return Math.random() * 97;
+}
+function setInputElementValues() {
+	sortingSpeedElement_range.min = speedRange[0];
+	sortingSpeedElement_range.max = speedRange[1];
+	sortingSpeedElement_range.value = speedRange[2];
+	sortingSizeElement_range.min = sizeRange[0];
+	sortingSizeElement_range.max = sizeRange[1];
+	sortingSizeElement_range.value = sizeRange[2];
+	sortingSpeedElement_number.min = sortingSpeedElement_range.min;
+	sortingSpeedElement_number.max = sortingSpeedElement_range.max;
+	sortingSpeedElement_number.value = sortingSpeedElement_range.value;
+	sortingSizeElement_number.min = sortingSizeElement_number.min;
+	sortingSizeElement_number.max = sortingSizeElement_number.max;
+	sortingSizeElement_number.value = sortingSizeElement_range.value;
+}
+function addSortingAlgorithmsOptions() {
+	const sortingOptionValues = Object.values(sortingOptions);
+	const sortingOptionValuesLen = sortingOptionValues.length;
+	for (let i = 0; i < sortingOptionValuesLen; i++) {
+		const sortingOptionElement = document.createElement('option');
+		const sortingOptionValue = sortingOptionValues[i];
+		const optionDisabled = sortingOptionValue.optionDisabled;
+		//
+		sortingOptionElement.value = sortingOptionValue.algorithmName;
+		sortingOptionElement.innerHTML = sortingOptionValue.algorithmName;
+		if (optionDisabled === true || optionDisabled === undefined) {
+			sortingOptionElement.disabled = true;
+		}
+		sortingOptionsElement.appendChild(sortingOptionElement);
+	}
+}
+function updateSortingSpeed(value) {
+	if (sortingAlgorithmObj !== null) {
+		sortingAlgorithmObj.sortingSpeed = value;
+	}
 }

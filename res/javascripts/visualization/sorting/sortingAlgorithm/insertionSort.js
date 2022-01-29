@@ -9,8 +9,7 @@ class insertionSort extends algorithmBaseClass {
 		this.index = 1;
 		this.leftPointer = 0;
 	}
-	displayUpdate() {
-		this.pushHighlight();
+	colorHighlightUpdate() {
 		if (this.index < this.sortingSize) {
 			this.currentBlueHighlight.push(this.originalList[this.index].element);
 		}
@@ -19,7 +18,6 @@ class insertionSort extends algorithmBaseClass {
 				this.originalList[this.leftPointer].element
 			);
 		}
-		this.updateHighlightClass();
 	}
 	sortUpdate() {
 		if (this.index >= this.sortingSize) {

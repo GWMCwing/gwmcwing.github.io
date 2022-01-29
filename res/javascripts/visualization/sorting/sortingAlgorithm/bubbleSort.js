@@ -16,14 +16,12 @@ class bubbleSort extends algorithmBaseClass {
 	 */
 
 	//
-	displayUpdate() {
-		this.pushHighlight();
+	colorHighlightUpdate() {
 		this.currentRedHighlight.push(this.originalList[this.leftPointer].element);
 		this.currentRedHighlight.push(this.originalList[this.rightPointer].element);
-		this.currentBlueHighlight.push(
+		this.currentGreenHighlight.push(
 			this.originalList[this.endPoint + 1].element
 		);
-		this.updateHighlightClass();
 	}
 	sortUpdate() {
 		if (this.rightPointer > this.endPoint) {
