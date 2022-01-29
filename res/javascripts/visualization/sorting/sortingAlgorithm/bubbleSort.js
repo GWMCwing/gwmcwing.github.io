@@ -14,39 +14,10 @@ class bubbleSort extends algorithmBaseClass {
 	 *
 	 * @returns {boolean?} null means not the end of search
 	 */
-	continueSort() {
-		if (this.forceEnd) {
-			sortStatusStateElement.innerHTML = 'Paused';
-			return true;
-		}
-		this.sortOnce();
-		if (this.sorted) {
-			this.previousRedHighlight = this.currentRedHighlight;
-			this.previousBlueHighlight = this.currentBlueHighlight;
-			this.previousGreenHighlight = this.currentGreenHighlight;
-			this.currentRedHighlight = [];
-			this.currentBlueHighlight = [];
-			this.currentGreenHighlight = [];
-			this.updateHighlightClass();
-			sortStatusStateElement.innerHTML = 'Sorting Complete';
-			console.log('ended');
-			return true;
-		}
-		updateMetrics();
-		setTimeout(() => {
-			this.continueSort();
-		}, this.sortingSpeed);
-	}
-	sortOnce() {
-		if (this.sorted || this.forceEnd) {
-			return true;
-		}
-		this.displayUpdate();
-		return this.sortUpdate();
-	}
+
 	//
 	displayUpdate() {
-		this.pushHighligh();
+		this.pushHighlight();
 		this.currentRedHighlight.push(this.originalList[this.leftPointer].element);
 		this.currentRedHighlight.push(this.originalList[this.rightPointer].element);
 		this.currentBlueHighlight.push(
@@ -56,6 +27,7 @@ class bubbleSort extends algorithmBaseClass {
 	}
 	sortUpdate() {
 		if (this.rightPointer > this.endPoint) {
+			// loop end condition
 			this.leftPointer = 0;
 			this.rightPointer = 1;
 			this.endPoint--;
@@ -66,14 +38,13 @@ class bubbleSort extends algorithmBaseClass {
 				this.sorted = null;
 				return false;
 			}
-		} else if (
-			this.listObj[this.leftPointer].value >
-			this.listObj[this.rightPointer].value
-		) {
+		} else if (this.compareValues(this.leftPointer, this.rightPointer)) {
+			// swap
 			this.swapElement(this.leftPointer, this.rightPointer);
 			// console.log('swapped' + this.leftPointer + ' ' + this.rightPointer);
 			this.sorted = false;
 		}
+		//
 		this.leftPointer++;
 		this.rightPointer = this.leftPointer + 1;
 		if (this.rightPointer == this.sortingSize) {

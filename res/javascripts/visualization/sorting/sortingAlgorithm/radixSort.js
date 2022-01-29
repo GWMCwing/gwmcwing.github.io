@@ -1,4 +1,4 @@
-class mergeSort extends algorithmBaseClass {
+class radixSort extends algorithmBaseClass {
 	/**
 	 *
 	 * @param {number} sortingSpeed

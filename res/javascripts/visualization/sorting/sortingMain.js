@@ -1,5 +1,5 @@
 //TODO add a compare function to all sorting algorithms and create compare counter
-//
+//a
 const sortingBox_displayElement = document.getElementById('sortingBox-display');
 //
 const sortingOptionsElement = document.getElementById('sortingAlgorithm');
@@ -13,6 +13,10 @@ const sortingStartElement = document.getElementById('sortingStart');
 const sortingReshuffleElement = document.getElementById('sortingReshuffle');
 //
 const accessCountNumberElement = document.getElementById('accessCount-number');
+const compareCountNumberElement = document.getElementById(
+	'compareCount-number'
+);
+const swapCountNumberElement = document.getElementById('swapCount-number');
 const sortStatusStateElement = document.getElementById('sortStatus-state');
 //
 class barClass {
@@ -31,20 +35,26 @@ class barClass {
 const barList = [];
 var sortingAlgorithmObj = null;
 var accessCount = 0;
+var compareCount = 0;
+var swapCount = 0;
 
 window.onload = function () {
 	addEventListenerToOptions();
-	const sortingOptionKey = Object.keys(sortingOptions);
-	const sortingOptionKeyLen = sortingOptionKey.length;
-	//! rebuild
-	for (let i = 0; i < sortingOptionKeyLen; i++) {
+	const sortingOptionValues = Object.values(sortingOptions);
+	const sortingOptionValuesLen = sortingOptionValues.length;
+	for (let i = 0; i < sortingOptionValuesLen; i++) {
 		const sortingOptionElement = document.createElement('option');
-		const algorithmName = sortingOptionKey[i];
-		sortingOptionElement.value = algorithmName;
-		sortingOptionElement.innerHTML = algorithmName;
+		const sortingOptionValue = sortingOptionValues[i];
+		const optionDisabled = sortingOptionValue.optionDisabled;
+		//
+		sortingOptionElement.value = sortingOptionValue.algorithmName;
+		sortingOptionElement.innerHTML = sortingOptionValue.algorithmName;
+		if (optionDisabled === true || optionDisabled === undefined) {
+			sortingOptionElement.disabled = true;
+		}
 		sortingOptionsElement.appendChild(sortingOptionElement);
 	}
-	sortingSpeedElement_range.max = 100;
+	sortingSpeedElement_range.max = 1000;
 	sortingSpeedElement_range.min = 4;
 	sortingSizeElement_range.max = Math.min(
 		Math.floor((document.body.clientWidth / 2) * 0.85),
@@ -151,6 +161,8 @@ function updateVisibleBars(values) {
 function reshuffle() {
 	const barListLen = barList.length;
 	accessCount = 0;
+	compareCount = 0;
+	swapCount = 0;
 	sortingOptionsElement.disabled = false;
 	sortingSpeedElement_range.disabled = false;
 	sortingSpeedElement_number.disabled = false;
@@ -171,10 +183,12 @@ function reshuffle() {
 		classList.remove('blue-highlight');
 	}
 	sortStatusStateElement.innerHTML = 'Paused';
-	accessCountNumberElement.innerHTML = accessCount;
+	updateMetrics();
 }
 function updateMetrics() {
 	accessCountNumberElement.innerHTML = accessCount;
+	compareCountNumberElement.innerHTML = compareCount;
+	swapCountNumberElement.innerHTML = swapCount;
 }
 function getRandomHeight() {
 	return Math.random() * 97;
