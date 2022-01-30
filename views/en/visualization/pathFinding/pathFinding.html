@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>GW_MC webpage</title>
+		<link rel="stylesheet" href="/res/stylesheets/commonstyle.css" />
+		<link
+			rel="stylesheet"
+			href="/res/stylesheets/visualization/pathFinding/pathFinding.css"
+		/>
+	</head>
+	<body>
+		<div class="navbar-placeholder"></div>
+		<div id="content-container-main">
+			<div id="pathFindingBox">
+				<div id="pathFindingBox-header">
+					<div id="pathFindingBox-header-title">
+						<p id="pathFindingTitle">Path Finding</p>
+					</div>
+				</div>
+				<div id="pathFindingBox-display">
+					<!--  -->
+				</div>
+				<div id="pathFindBox-types"></div>
+				<div class="pathFindingBox-metrics">
+					<form id="pathFindingOptionsForm">
+						<label for="pathFindingAlgorithm">Path Finding Algorithm</label>
+						<select
+							name="pathFindingAlgorithm"
+							id="pathFindingAlgorithm"
+						></select>
+						<label for="pathFindingSpeed">Speed</label>
+						<input
+							type="range"
+							id="pathFindingSpeed-range"
+							name="pathFindingSpeed-range"
+							value="4"
+						/>
+						<input
+							type="number"
+							id="pathFindingSpeed-number"
+							name="pathFindingSpeed-number"
+							value="4"
+						/>
+						<label for="pathFindingWidth">Width</label>
+						<input
+							type="range"
+							id="pathFindingWidth-range"
+							name="pathFindingWidth-range"
+							value="10"
+						/>
+						<input
+							type="number"
+							id="pathFindingWidth-number"
+							name="pathFindingWidth-number"
+							value="10"
+						/>
+						<label for="pathFindingHeight">Height</label>
+						<input
+							type="range"
+							id="pathFindingHeight-range"
+							name="pathFindingHeight-range"
+							value="10"
+						/>
+						<input
+							type="number"
+							id="pathFindingHeight-number"
+							name="pathFindingHeight-number"
+							value="10"
+						/>
+						<input type="button" id="pathFindingStart" value="Start" />
+						<input type="button" id="pathFindingReset" value="Reset" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="/res/javascripts/jquery-3.6.0.min.js"></script>
+	<div id="pathFindingAlgorithmScript">
+		<script src="/res/javascripts/visualization/pathFinding/pathFindingConstant.js"></script>
+		<script src="/res/javascripts/visualization/pathFinding/pathFindingAlgorithm/pathFindingAlgorBaseClass.js"></script>
+		<script src="/res/javascripts/visualization/pathFinding/algorithmOptions.js"></script>
+		<script src="/res/javascripts/visualization/pathFinding/importAlgorithm.js"></script>
+		<script src="/res/javascripts/visualization/pathFinding/pathFindingMain.js"></script>
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			$('.navbar-placeholder').load('/views/template/navbar/navbar.html');
+		});
+	</script>
+</html>

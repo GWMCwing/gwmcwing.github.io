@@ -1,0 +1,12 @@
+:root {
+	--pathFindBox-size: min(calc(100vh / 40), calc(100vw / 40));
+}
+#pathFindingBox-display {
+	width: 85vw;
+	display: grid;
+	grid-template-columns: repeat(40, var(--pathFindBox-size));
+	grid-template-rows: repeat(40, var(--pathFindBox-size));
+	justify-content: center;
+}
+.box {
+}
