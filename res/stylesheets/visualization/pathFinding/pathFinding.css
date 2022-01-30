@@ -1,12 +1,34 @@
 :root {
-	--pathFindBox-size: min(calc(100vh / 40), calc(100vw / 40));
+	--pathFindingBoxBorderRadius: 25%;
+}
+
+body {
+	/* !Require check in the future */
+	overflow-x: hidden;
+}
+.contain-container-main {
+	width: 100vw;
 }
 #pathFindingBox-display {
-	width: 85vw;
 	display: grid;
-	grid-template-columns: repeat(40, var(--pathFindBox-size));
-	grid-template-rows: repeat(40, var(--pathFindBox-size));
-	justify-content: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 1.2rem;
 }
 .box {
+	background-color: rgb(226, 226, 226);
+	border-radius: var(--pathFindingBoxBorderRadius);
+}
+.box:hover {
+	background-color: rgb(240, 240, 240);
+}
+@media only screen and (max-width: 425px) {
+	#mobileWarning {
+		display: block;
+	}
+}
+@media only screen and (min-width: 425px) {
+	#mobileWarning {
+		display: none;
+	}
 }

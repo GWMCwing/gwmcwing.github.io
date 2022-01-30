@@ -6,10 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>GW_MC webpage</title>
 		<link rel="stylesheet" href="/res/stylesheets/commonstyle.css" />
-		<link
-			rel="stylesheet"
-			href="/res/stylesheets/visualization/pathFinding/pathFinding.css"
-		/>
+		<link rel="stylesheet" href="/res/stylesheets/visualization/pathFinding/pathFinding.css" />
 	</head>
 	<body>
 		<div class="navbar-placeholder"></div>
@@ -18,6 +15,7 @@
 				<div id="pathFindingBox-header">
 					<div id="pathFindingBox-header-title">
 						<p id="pathFindingTitle">Path Finding</p>
+						<p id="mobileWarning">This visualization is not optimized for mobile device please use PC instead</p>
 					</div>
 				</div>
 				<div id="pathFindingBox-display">
@@ -27,49 +25,16 @@
 				<div class="pathFindingBox-metrics">
 					<form id="pathFindingOptionsForm">
 						<label for="pathFindingAlgorithm">Path Finding Algorithm</label>
-						<select
-							name="pathFindingAlgorithm"
-							id="pathFindingAlgorithm"
-						></select>
+						<select name="pathFindingAlgorithm" id="pathFindingAlgorithm"></select>
 						<label for="pathFindingSpeed">Speed</label>
-						<input
-							type="range"
-							id="pathFindingSpeed-range"
-							name="pathFindingSpeed-range"
-							value="4"
-						/>
-						<input
-							type="number"
-							id="pathFindingSpeed-number"
-							name="pathFindingSpeed-number"
-							value="4"
-						/>
+						<input type="range" id="pathFindingSpeed-range" name="pathFindingSpeed-range" value="4" />
+						<input type="number" id="pathFindingSpeed-number" name="pathFindingSpeed-number" value="4" />
 						<label for="pathFindingWidth">Width</label>
-						<input
-							type="range"
-							id="pathFindingWidth-range"
-							name="pathFindingWidth-range"
-							value="10"
-						/>
-						<input
-							type="number"
-							id="pathFindingWidth-number"
-							name="pathFindingWidth-number"
-							value="10"
-						/>
+						<input type="range" id="pathFindingWidth-range" name="pathFindingWidth-range" value="10" />
+						<input type="number" id="pathFindingWidth-number" name="pathFindingWidth-number" value="10" />
 						<label for="pathFindingHeight">Height</label>
-						<input
-							type="range"
-							id="pathFindingHeight-range"
-							name="pathFindingHeight-range"
-							value="10"
-						/>
-						<input
-							type="number"
-							id="pathFindingHeight-number"
-							name="pathFindingHeight-number"
-							value="10"
-						/>
+						<input type="range" id="pathFindingHeight-range" name="pathFindingHeight-range" value="10" />
+						<input type="number" id="pathFindingHeight-number" name="pathFindingHeight-number" value="10" />
 						<input type="button" id="pathFindingStart" value="Start" />
 						<input type="button" id="pathFindingReset" value="Reset" />
 					</form>
