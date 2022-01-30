@@ -52,19 +52,16 @@ class mergeSort extends algorithmBaseClass {
 		let leftDone = this.leftListPointer >= this.sizeList[this.indexPointer];
 		let rightDone =
 			this.rightListPointer >= this.sizeList[this.indexPointer + 1];
-		if (leftDone && !rightDone) {
+		if (leftDone && rightDone) {
+			this.modifySizeList();
+		} else if (leftDone && !rightDone) {
 			const element = this.insertBeforeElement(rightIndex, leftIndex);
 			this.currentGreenHighlightPending.push(element);
 			this.rightListPointer++;
-		}
-		if (rightDone && !leftDone) {
+		} else if (rightDone && !leftDone) {
 			this.leftListPointer = this.sizeList[this.indexPointer] + 1;
-		}
-		if (!leftDone && !rightDone) {
+		} else {
 			this.compareAndInsert(leftIndex, rightIndex);
-		}
-		if (leftDone && rightDone) {
-			this.modifySizeList();
 		}
 	}
 	modifySizeList() {

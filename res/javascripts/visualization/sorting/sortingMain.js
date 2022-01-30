@@ -111,7 +111,7 @@ function resetSortingSizeElementLimit(number) {
 	sortingSizeElement_number.max = number;
 	const barListLen = barList.length;
 	const insertLen = number - barListLen;
-	for (let i = 0; i < insertLen; i++) {
+	for (let i = 0; i < insertLen + 1; i++) {
 		const [bar, value] = insertBar();
 		barList.push(new barClass(bar, value));
 	}

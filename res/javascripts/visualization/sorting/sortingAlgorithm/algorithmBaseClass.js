@@ -67,7 +67,6 @@ class algorithmBaseClass {
 	 */
 	insertBeforeElement(index1, targetIndex) {
 		//
-
 		if (this.forceEnd) return;
 		const barObj = this.listObj[index1];
 		const targetBarObj = this.listObj[targetIndex];

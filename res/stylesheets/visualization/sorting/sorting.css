@@ -1,7 +1,14 @@
 :root {
-	--sortingRedHighlight: #9e0000;
-	--sortingBlueHighlight: #00009e;
+	--sortingYellowHighlight: #9e8600;
+	--sortingYellowGreenHighlight: #8ee600;
 	--sortingGreenHighlight: #009e00;
+	--sortingBlueGreenHighlight: #00d7e6;
+	--sortingBlueHighlight: #00009e;
+	--sortingVioletHighlight: #9e009e;
+	--sortingRedVioletHighlight: #e6009e;
+	--sortingRedHighlight: #9e0000;
+	--sortingOrangeHighlight: #ff9100;
+	--sortingYellowOrangeHighlight: #ffc400;
 }
 body {
 	height: 80vh;
@@ -31,15 +38,37 @@ body > .sortingBox > .sortingBox-header {
 .bar {
 	background-color: #000;
 }
-.bar.red-highlight {
+.red-highlight {
 	background-color: var(--sortingRedHighlight);
 	/* border-color: var(--sortingRedHighlight); */
 }
-.bar.green-highlight {
+.green-highlight {
 	background-color: var(--sortingGreenHighlight);
 	/* border-color: var(--sortingGreenHighlight); */
 }
-.bar.blue-highlight {
+.blue-highlight {
 	background-color: var(--sortingBlueHighlight);
 	/* border-color: var(--sortingBlueHighlight); */
+}
+/* radix color */
+.yellow-Highlight {
+	background-color: var(--sortingYellowHighlight);
+}
+.yellowGreen-Highlight {
+	background-color: var(--sortingYellowGreenHighlight);
+}
+.blueGreen-Highlight {
+	background-color: var(--sortingBlueGreenHighlight);
+}
+.violet-Highlight {
+	background-color: var(--sortingVioletHighlight);
+}
+.redViolet-Highlight {
+	background-color: var(--sortingRedVioletHighlight);
+}
+.orange-Highlight {
+	background-color: var(--sortingOrangeHighlight);
+}
+.yellowOrange-Highlight {
+	background-color: var(--sortingYellowOrangeHighlight);
 }
