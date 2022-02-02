@@ -8,12 +8,16 @@ var selectedBoxType = 'wall';
 var startBox = null;
 var endBox = null;
 //
+var pathFindingObj = null;
+//
 class boxClass {
-	constructor(i, j, element, type) {
+	constructor(i, j, element, type, weight) {
 		this.i = i;
 		this.j = j;
 		this.element = element;
 		this.type = type;
+		this.weight = weight;
+		this.pathValue = Infinity;
 	}
 }
 //
@@ -111,10 +115,10 @@ function setOptionsListener() {
 	};
 	//
 	pathFindingStartElement.onclick = function () {
-		console.log('start');
+		startPathFinding();
 	};
 	pathFindingResetElement.onclick = function () {
-		console.log('reset');
+		resetPathGrid();
 	};
 }
 function updateGridSize() {
@@ -144,9 +148,9 @@ function updateGridSize() {
 		for (let j = 0; j < jLen; j++) {
 			const box = boxList2d[i][j];
 			if (i < heightNum && j < widthNum) {
-				box.element.style.display = 'block';
+				box.element.classList.add('show-box');
 			} else {
-				box.element.style.display = 'none';
+				box.element.classList.remove('show-box');
 			}
 		}
 	}
@@ -160,18 +164,19 @@ function insertBox() {
 			const box = document.createElement('div');
 			box.classList.add('box');
 			box.classList.add(boxTypeObj.empty);
+			let weight = 1;
 			box.id = `box-${i}-${j}`;
 			box.addEventListener('mouseover', function (event) {
 				if (mousedownCount) changeSelectedBoxClass(event);
 			});
 			pathFindingBox_display.appendChild(box);
-			row.push(new boxClass(i, j, box, boxTypeObj.empty));
+			row.push(new boxClass(i, j, box, boxTypeObj.empty, weight));
 		}
 		boxList2d.push(row);
 	}
 }
 // add class when drag over
-window.addEventListener('mousedown', (event) => {
+window.addEventListener('mousedown', function (event) {
 	if (event.target.classList.contains('box')) {
 		event.preventDefault();
 		if (mousedownCount === 0) {
@@ -182,11 +187,18 @@ window.addEventListener('mousedown', (event) => {
 		mousedownCount = 0;
 	}
 });
-window.addEventListener('mouseup', (event) => {
+window.addEventListener('mouseup', function (event) {
 	mousedownCount = 0;
 });
 //
 async function changeSelectedBoxClass(event) {
+	if (
+		pathFindingObj !== null ||
+		(selectedBoxType === 'start' && startBox !== null) ||
+		(selectedBoxType === 'end' && endBox !== null)
+	) {
+		return;
+	}
 	const box = event.target;
 	const boxId = box.id.split('-');
 	const boxId_i = parseInt(boxId[1]);
@@ -194,16 +206,7 @@ async function changeSelectedBoxClass(event) {
 	const boxObj = boxList2d[boxId_i][boxId_j];
 	const oriBoxType = boxObj.type;
 	//
-	if (
-		(selectedBoxType === 'start' && startBox !== null) ||
-		(selectedBoxType === 'end' && endBox !== null)
-	) {
-		return;
-	}
-	//
-	for (let i = 0; i < boxTypeListLen; i++) {
-		box.classList.remove(boxTypeList[i]);
-	}
+	box.classList.remove(oriBoxType);
 	box.classList.add(selectedBoxType);
 	//
 	boxObj.type = selectedBoxType;
@@ -223,11 +226,92 @@ async function changeSelectedBoxClass(event) {
 	}
 }
 function updateSelectedClass(name) {
+	if (pathFindingObj !== null) return;
 	selectedBoxType = boxTypeObj[name];
+	pathFindTypeBoxStart.classList.remove('selected');
+	pathFindTypeBoxEnd.classList.remove('selected');
+	pathFindTypeBoxWall.classList.remove('selected');
+	pathFindTypeBoxEmpty.classList.remove('selected');
+	switch (name) {
+		case boxTypeObj.start:
+			pathFindTypeBoxStart.classList.add('selected');
+			break;
+		case boxTypeObj.end:
+			pathFindTypeBoxEnd.classList.add('selected');
+			break;
+		case boxTypeObj.wall:
+			pathFindTypeBoxWall.classList.add('selected');
+			break;
+		case boxTypeObj.empty:
+			pathFindTypeBoxEmpty.classList.add('selected');
+			break;
+		default:
+			console.warn('unknown name');
+			break;
+	}
 }
 function toggleStartBox() {
 	pathFindTypeBoxStart.classList.toggle('full');
 }
 function toggleEndBox() {
 	pathFindTypeBoxEnd.classList.toggle('full');
+}
+//
+function startPathFinding() {
+	if (startBox === null) {
+		alert('請選擇起點');
+		return;
+	} else if (endBox === null) {
+		alert('請選擇終點');
+		return;
+	}
+	toggleButton(true);
+	console.log('start');
+	//
+	pathFindingObj = new Object();
+}
+
+function toggleButton(boolean) {
+	pathFindingOptions.disabled = boolean;
+	pathFindingWidth_number.disabled = boolean;
+	pathFindingWidth_range.disabled = boolean;
+	pathFindingHeight_number.disabled = boolean;
+	pathFindingHeight_range.disabled = boolean;
+	pathFindingStartElement.disabled = boolean;
+	//
+	if (boolean) {
+		pathFindTypeBoxStart.classList.add('full');
+		pathFindTypeBoxEnd.classList.add('full');
+		pathFindTypeBoxWall.classList.add('full');
+		pathFindTypeBoxEmpty.classList.add('full');
+	} else {
+		pathFindTypeBoxStart.classList.remove('full');
+		pathFindTypeBoxEnd.classList.remove('full');
+		pathFindTypeBoxWall.classList.remove('full');
+		pathFindTypeBoxEmpty.classList.remove('full');
+	}
+}
+
+function resetPathGrid() {
+	const iLen = boxList2d.length;
+	const jLen = boxList2d[0].length;
+	for (let i = 0; i < iLen; i++) {
+		for (let j = 0; j < jLen; j++) {
+			const box = boxList2d[i][j];
+			const boxElement = box.element;
+			const boxType = box.type;
+			box.type = boxTypeObj.empty;
+			box.weight = 1;
+			box.pathValue = Infinity;
+			boxElement.classList.remove(boxType);
+			boxElement.classList.add(boxTypeObj.empty);
+			boxElement.style = '';
+		}
+	}
+	startBox = null;
+	endBox = null;
+	pathFindTypeBoxStart.classList.remove('full');
+	pathFindTypeBoxEnd.classList.remove('full');
+	pathFindingObj = null;
+	toggleButton(false);
 }

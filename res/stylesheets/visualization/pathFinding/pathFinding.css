@@ -24,6 +24,10 @@ body {
 .box {
 	background-color: var(--emptyColor);
 	border-radius: var(--pathFindingBoxBorderRadius);
+	display: none;
+}
+.box.show-box {
+	display: block;
 }
 .box:hover {
 	opacity: var(--typeBoxOnHoverOpacity);
@@ -54,10 +58,7 @@ body {
 #pathFindBox-types-end {
 	background-color: var(--endColor);
 }
-#pathFindBox-types-start.full {
-	opacity: 0.3 !important;
-}
-#pathFindBox-types-end.full {
+#pathFindBox-types-container > .full {
 	opacity: 0.3 !important;
 }
 #pathFindBox-types-wall {
@@ -75,44 +76,65 @@ body {
 	/* justify-content: center; */
 	justify-content: space-between;
 	margin: 1rem 0;
-	height: min(4vh, 2rem);
+	height: min(3vh, 2.5rem);
 }
 #pathFindBox-types-container > div {
 	width: 100%;
 	margin: auto 0.2rem;
 	vertical-align: middle;
 	text-align: center;
-	border: 1.5px solid black;
+	/* border: 1.5px solid black; */
 	border-radius: 6%;
 	user-select: none;
 }
 #pathFindBox-types-wall {
 	background-color: var(--wallColor);
 }
-#pathFindBox-types-path {
-	background-color: var(--pathColor);
-}
-#pathFindBox-types-start {
-	background-color: var(--startColor);
-}
-#pathFindBox-types-end {
-	background-color: var(--endColor);
-}
-#pathFindBox-types-empty {
-	background-color: var(--emptyColor);
+#pathFindBox-types-wall.selected {
+	transform: translate(0, -5px);
+	box-shadow: 0px 5px 0px 0px var(--wallColor);
 }
 #pathFindBox-types-wall:hover {
 	opacity: var(--typeBoxOnHoverOpacity);
 }
+#pathFindBox-types-path {
+	background-color: var(--pathColor);
+}
+#pathFindBox-types-path.selected {
+	transform: translate(0, -5px);
+	box-shadow: 0px 5px 0px 0px var(--pathColor);
+}
 #pathFindBox-types-path:hover {
 	opacity: var(--typeBoxOnHoverOpacity);
+}
+#pathFindBox-types-start {
+	background-color: var(--startColor);
+}
+#pathFindBox-types-start.selected {
+	transform: translate(0, -5px);
+	box-shadow: 0px 5px 0px 0px var(--startColor);
 }
 #pathFindBox-types-start:hover {
 	opacity: var(--typeBoxOnHoverOpacity);
 }
+#pathFindBox-types-end {
+	background-color: var(--endColor);
+}
+#pathFindBox-types-end.selected {
+	transform: translate(0, -5px);
+	box-shadow: 0px 5px 0px 0px var(--endColor);
+}
 #pathFindBox-types-end:hover {
 	opacity: var(--typeBoxOnHoverOpacity);
 }
+#pathFindBox-types-empty {
+	background-color: var(--emptyColor);
+}
+#pathFindBox-types-empty.selected {
+	transform: translate(0, -5px);
+	box-shadow: 0px 5px 0px 0px var(--emptyColor);
+}
+
 #pathFindBox-types-empty:hover {
 	opacity: var(--typeBoxOnHoverOpacity);
 }
