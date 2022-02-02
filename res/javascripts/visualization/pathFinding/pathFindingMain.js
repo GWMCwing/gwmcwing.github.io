@@ -1,5 +1,3 @@
-const boxTypeList = Object.values(boxTypeObj);
-const boxTypeListLen = boxTypeList.length;
 var boxList2d = [];
 var boxClassLoaded = false;
 var mousedownCount = 0;
@@ -10,20 +8,10 @@ var endBox = null;
 //
 var pathFindingObj = null;
 //
-class boxClass {
-	constructor(i, j, element, type, weight) {
-		this.i = i;
-		this.j = j;
-		this.element = element;
-		this.type = type;
-		this.weight = weight;
-		this.pathValue = Infinity;
-	}
-}
-//
 window.onload = function () {
 	setOptionsRange();
 	setOptionsListener();
+	appendAlgorithmOptions();
 	insertBox();
 	boxClassLoaded = true;
 	updateGridSize();
@@ -31,7 +19,23 @@ window.onload = function () {
 window.onresize = function () {
 	updateGridSize();
 };
-
+//
+function appendAlgorithmOptions() {
+	const pathFindAlgorithmValues = Object.values(algorithmOptions);
+	const pathFindAlgorithmValueLen = pathFindAlgorithmValues.length;
+	for (let i = 0; i < pathFindAlgorithmValueLen; i++) {
+		const pathFindAlgorithmElement = document.createElement('option');
+		const pathFindAlgorithmValue = pathFindAlgorithmValues[i];
+		const optionDisabled = pathFindAlgorithmValue.optionDisabled;
+		//
+		pathFindAlgorithmElement.value = pathFindAlgorithmValue.algorithmName;
+		pathFindAlgorithmElement.innerHTML = pathFindAlgorithmValue.algorithmName;
+		if (optionDisabled === true || optionDisabled === undefined) {
+			pathFindAlgorithmElement.disabled = true;
+		}
+		pathFindingOptions.appendChild(pathFindAlgorithmElement);
+	}
+}
 //
 function setOptionsRange() {
 	[
@@ -227,11 +231,26 @@ async function changeSelectedBoxClass(event) {
 }
 function updateSelectedClass(name) {
 	if (pathFindingObj !== null) return;
+	const oriSelectedBoxType = selectedBoxType;
 	selectedBoxType = boxTypeObj[name];
-	pathFindTypeBoxStart.classList.remove('selected');
-	pathFindTypeBoxEnd.classList.remove('selected');
-	pathFindTypeBoxWall.classList.remove('selected');
-	pathFindTypeBoxEmpty.classList.remove('selected');
+	switch (oriSelectedBoxType) {
+		case boxTypeObj.start:
+		case boxTypeObj.start:
+			pathFindTypeBoxStart.classList.remove('selected');
+			break;
+		case boxTypeObj.end:
+			pathFindTypeBoxEnd.classList.remove('selected');
+			break;
+		case boxTypeObj.wall:
+			pathFindTypeBoxWall.classList.remove('selected');
+			break;
+		case boxTypeObj.empty:
+			pathFindTypeBoxEmpty.classList.remove('selected');
+			break;
+		default:
+			console.warn('unknown name');
+			break;
+	}
 	switch (name) {
 		case boxTypeObj.start:
 			pathFindTypeBoxStart.classList.add('selected');
@@ -258,17 +277,44 @@ function toggleEndBox() {
 }
 //
 function startPathFinding() {
-	if (startBox === null) {
-		alert('請選擇起點');
-		return;
-	} else if (endBox === null) {
-		alert('請選擇終點');
-		return;
-	}
+	// if (startBox === null) {
+	// 	alert('請選擇起點');
+	// 	return;
+	// } else if (endBox === null) {
+	// 	alert('請選擇終點');
+	// 	return;
+	// }
 	toggleButton(true);
 	console.log('start');
 	//
-	pathFindingObj = new Object();
+	const algorithmName = pathFindingOptions.value;
+	const pathFindingSpeed = pathFindingSpeed_range.value;
+	const pathFindingWidth = pathFindingWidth_range.value;
+	const pathFindingHeight = pathFindingHeight_range.value;
+	const startBoxObj = startBox;
+	const endBoxObj = endBox;
+	//
+	let mapList = [];
+	for (let i = 0; i < pathFindingHeight; i++) {
+		const row = [];
+		for (let j = 0; j < pathFindingWidth; j++) {
+			row.push(boxList2d[i][j]);
+		}
+		mapList.push(row);
+	}
+	console.log(mapList);
+	//
+	const pathFindingObjClass = algorithmOptions[algorithmName].function();
+	pathFindingObj = new pathFindingObjClass(
+		pathFindingSpeed,
+		pathFindingWidth,
+		pathFindingHeight,
+		mapList,
+		boxList2d,
+		startBoxObj,
+		endBoxObj
+	);
+	//TODO trigger
 }
 
 function toggleButton(boolean) {
@@ -308,10 +354,9 @@ function resetPathGrid() {
 			boxElement.style = '';
 		}
 	}
+	//
 	startBox = null;
 	endBox = null;
-	pathFindTypeBoxStart.classList.remove('full');
-	pathFindTypeBoxEnd.classList.remove('full');
 	pathFindingObj = null;
 	toggleButton(false);
 }

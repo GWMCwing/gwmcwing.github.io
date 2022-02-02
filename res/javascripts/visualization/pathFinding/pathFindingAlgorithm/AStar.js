@@ -1,3 +1,5 @@
 class AStar extends pathFindingAlgorithmBaseClass {
-	constructor() {}
+	constructor(speed, width, height, boxList, oriBoxList, startObj, endObj) {
+		super(speed, width, height, boxList, oriBoxList, startObj, endObj);
+	}
 }

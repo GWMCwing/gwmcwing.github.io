@@ -1,6 +1,9 @@
 class pathFindingAlgorithmBaseClass {
-	constructor(boxList, oriBoxList, startObj, endObj) {
-		this.boxList = fillWall(boxList);
+	constructor(speed, width, height, boxList, oriBoxList, startObj, endObj) {
+		this.speed = speed;
+		this.width = width;
+		this.height = height;
+		this.boxList = this.fillWall(boxList);
 		this.oriBoxList = oriBoxList;
 		this.startObj = startObj;
 		this.endObj = endObj;
