@@ -27,6 +27,7 @@ const pathFindingHeight_number = document.getElementById(
 // buttons
 const pathFindingStartElement = document.getElementById('pathFindingStart');
 const pathFindingResetElement = document.getElementById('pathFindingReset');
+const pathFindingRerunElement = document.getElementById('pathFindingRerun');
 //
 // box types
 const pathFindTypeBoxStart = document.getElementById('pathFindBox-types-start');
@@ -54,3 +55,5 @@ const boxTypeObj = {
 };
 const boxTypeList = Object.values(boxTypeObj);
 const boxTypeListLen = boxTypeList.length;
+//
+const heuristicWeight = 3;
